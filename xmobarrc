@@ -1,9 +1,11 @@
 Config {
+       -- stalone tray is configured to have 5*12px icons top-right so pad xmobar by 60
        font = "xft:MesloLGM:size=8.5:bold:antialias=true"
        , bgColor = "#242424"
        , fgColor = "gray"
-       , position = TopW L 90
-       , commands = [ Run Cpu ["-L","3","-H","50","-l","gray90","-n","gray90","-h","#F25555"] 10
+       , position = TopP 0 60
+       , commands = [ Run Weather "EGLC" ["-t","<tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Cpu ["-L","3","-H","50","-l","gray90","-n","gray90","-h","#F25555"] 10
                     , Run Memory ["-t","Mem: <usedratio>%","-H","80","-L","10","-l","gray90","-n","gray90","-h","#F25555"] 10
                     , Run Date "%a %b %_d %k:%M" "date" 10
                    -- , Run DynNetwork ["-t","Net: +<rx>, -<tx>","-H","200","-L","10","-h","gray90","-l","gray90","-n","gray90"] 10
@@ -25,10 +27,11 @@ Config {
                                                    -- charged status
                                                    , "-i"   , "<fc=#7CCC86>Charged</fc>"
                                          ] 50
+                    , Run Com "getMasterVolume" [] "volumelevel" 10
                     --, Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "}{ %cpu% | %coretemp% | %memory% | %battery% | <fc=#69DFFA>%date%</fc>"
+       , template = "}{ %cpu% | %coretemp% | %memory% | %battery% | Vol: <fc=#b2b2ff>%volumelevel%</fc> | <fc=#69DFFA>%date%</fc> | %EGLC% "
        --, template = "%StdinReader% }{ %cpu% | %coretemp% | %memory% | %battery% | %dynnetwork% (%netcheck%) | <fc=#69DFFA>%date%</fc>"
 }

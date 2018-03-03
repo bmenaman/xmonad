@@ -1,10 +1,15 @@
+# 1 row of 5 icons 12px square, res 1920w
+# should really align the icon size with xmobar font
+# position - disp_width - (num_icons * icon_width)
+# position = 1920 - (5 * 12) = 1860
+
 decorations none
 transparent false
 dockapp_mode none
-geometry 5x1-400+0
-max_geometry 5x1-325-10
+geometry 5x1+1860
+#max_geometry 5x1-325-10
 background "#000000"
-kludges force_icons_size
+#kludges force_icons_size
 grow_gravity NE
 icon_gravity NE
 icon_size 12

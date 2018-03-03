@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#PATH=$PATH:~/dev/repos/xmonad/bin
+
+feh --bg-fill ~/.wallpaper.jpg &
+
+terminator &
+firefox &
