@@ -1,6 +1,7 @@
 #!/bin/sh
 
 #PATH=$PATH:~/dev/repos/xmonad/bin
+stalonetray &
 
 feh --bg-fill ~/.wallpaper.jpg &
 
