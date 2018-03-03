@@ -10,8 +10,9 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumns
-import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.SpawnOnce
 import qualified XMonad.StackSet as W
 import Graphics.X11.ExtraTypes.XF86
 import qualified Data.Map        as M
@@ -211,7 +212,7 @@ supoMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
 supoStartupHook = do
-  return ()
+  spawnOnce "stalonetray"
 
 
 ------------------------------------------------------------------------
@@ -281,6 +282,7 @@ defaults = defaultConfig
 ------------------------------------------------------------------------
 -- Run xmonad with all the defaults we set up.
 main = do
+  xmproc <- spawnPipe "xmobar"
   xmonad =<< dzen defaults {
       manageHook = manageDocks -- <+> supoManageHook
     , startupHook = setWMName "LG3D"
