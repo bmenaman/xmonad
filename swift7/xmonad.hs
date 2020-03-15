@@ -2,6 +2,7 @@ import System.IO
 import System.Exit
 import XMonad
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicBars as Bars
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
@@ -45,6 +46,11 @@ supoFocusedBorderColor = "#eeb0b6"
 xmobarTitleColor = "#FFB6B0"
 -- Color of current workspace in xmobar.
 xmobarCurrentWorkspaceColor = "#CEFFAC"
+barCreator :: Bars.DynamicStatusBar
+barCreator (S sid) = spawnPipe $ "xmobar --screen " ++ show sid
+
+barDestroyer :: Bars.DynamicStatusBarCleanup
+barDestroyer = return ()
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
 tabConfig =
@@ -285,5 +291,6 @@ main = do
   xmproc <- spawnPipe "xmobar"
   xmonad =<< dzen defaults {
       manageHook = manageDocks -- <+> supoManageHook
-    , startupHook = setWMName "LG3D"
+    , startupHook = do setWMName "LG3D"
+                       Bars.dynStatusBarStartup barCreator barDestroyer
   }
