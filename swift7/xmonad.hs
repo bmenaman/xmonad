@@ -8,8 +8,9 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.NoBorders
-import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
+import XMonad.Layout.Grid
+import XMonad.Layout.Dwindle as DWIN
 import XMonad.Layout.ThreeColumns
 import XMonad.Util.EZConfig(additionalKeys)
 import XMonad.Util.Run(spawnPipe)
@@ -211,6 +212,13 @@ supoMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
   ]
 
+-- Tall and ThreeCol 2nd param is resize and 3 is relative size.  Dwindle is right, clockwise, relative size and resize
+supoLayout = Tall 1 (3/100) (1/2) ||| Mirror (Tall 1 (3/100) (3/5)) ||| Dwindle R DWIN.CW 1 1.1
+ ||| ThreeColMid 1 (3/100) (1/2) ||| ThreeCol 1 (3/100) (5/12) ||| Grid ||| tabbed shrinkText tabConfig ||| Full
+ 
+-- ||| ThreeColMid 
+-- ||| ThreeCol 1 (3/100) (1/2) ||| Mirror (Tall 1 (3/100) (3/5)) ||| Full
+
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -253,7 +261,7 @@ defaults = defaultConfig
     mouseBindings      = supoMouseBindings,
 
     -- hooks, layouts
- --   layoutHook         = smartBorders $ supoLayout,
+    layoutHook         = smartBorders $ supoLayout,
 --    manageHook         = supoManageHook,
     startupHook        = supoStartupHook
   } `additionalKeys` 
